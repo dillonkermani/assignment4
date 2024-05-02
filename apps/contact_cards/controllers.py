@@ -17,7 +17,7 @@ def index():
 @action.uses(db, auth.user)
 def get_contacts():
     # Ensures contacts are ordered by creation with the most recent first
-    contacts = db(db.contacts.user_email == get_user_email()).select(orderby=~db.contacts.id).as_list()
+    contacts = db(db.contacts.user_email == get_user_email()).select(orderby=db.contacts.id).as_list()
     return dict(contacts=contacts)
 
 @action('add_contact', method="POST")

@@ -44,7 +44,7 @@ app.data = {
                 image: self.new_contact.image,
             }).then(function (response) {
                 console.log("Got the id: " + response.data.id);
-                self.contacts.unshift({
+                self.contacts.push({
                     id: response.data.id,
                     name: self.new_contact.name,
                     affiliation: self.new_contact.affiliation,
