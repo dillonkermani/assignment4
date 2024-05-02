@@ -17,10 +17,10 @@ def get_time():
 db.define_table(
     'contacts',
     Field('user_email', default=get_user_email),
-    Field('contact_name', default=''),
-    Field('contact_affiliation', default=''),
-    Field('contact_description', 'text', default=''),
-    Field('contact_image', 'text', default=''),
+    Field('name', default=''),
+    Field('affiliation', default=''),
+    Field('description', 'text', default=''),
+    Field('image', 'text', default=''),
 )
 
 db.commit()
