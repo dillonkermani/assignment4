@@ -13,14 +13,21 @@
     <h1 class="title">Contacts</h1>
     <div><button class="button is-success" id="add_button" @click="add_contact">Add Contact</button></div>
     <div class="card contact mt-4">
+
+
+      <!-- Add Contact Modal -->
       <div class="card-content">
         <div class="media">
           <div class="media-left">
-            <figure class="photo image is-96x96">
-              <img class="photo" src="https://bulma.io/assets/images/placeholders/96x96.png"/>
-              <input id="file-input" type="file" style="display: none"
-              accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
+
+            <figure class="photo image is-96x96" @click="triggerFileInput">
+              <img class="photo" :src="new_contact.image || 'https://bulma.io/assets/images/placeholders/96x96.png'"/>
+              <input ref="fileInput" id="file-input" type="file" style="display: none"
+                     accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
+                     @change="handleFileChange">
             </figure>
+            
+
           </div>
           <div class="media-content">
             <p class="title person-name">
@@ -47,6 +54,9 @@
             ></textarea> 
         </div>
 
+
+
+        <!-- Edit Contact Modal -->
         <div class="card contact mt-4" v-for="contact in contacts">
           <div class="card-content">
               <div class="media">

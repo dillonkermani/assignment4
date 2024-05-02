@@ -16,6 +16,13 @@ app.data = {
                 description: "",
                 image: "",
             },
+
+            uploading: false,
+            uploaded: false,
+            selection_done: false,
+            upload_file: "",
+            file: null,
+
         };
     },
     methods: {
@@ -73,6 +80,16 @@ app.data = {
                 console.log("Deleted contact " + name);
                 console.log("Updated contacts: " + self.contacts);
             });
+        },
+        triggerFileInput() {
+            this.$refs.fileInput.click(); // Accesses the file input using the ref attribute and triggers its click event
+          },
+        handleFileChange(event) {
+        const file = event.target.files[0];
+        if (file) {
+            // Creates a URL for the selected file
+            this.new_contact.image = URL.createObjectURL(file);
+        }
         },
     }
 };
