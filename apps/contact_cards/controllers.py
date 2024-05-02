@@ -35,15 +35,25 @@ from .models import get_user_email
 @action.uses('index.html', db, auth.user)
 def index():
     return dict(
-        get_contacts_url = URL('get_contacts'),
-        # Complete. 
+        get_contacts_url = URL('get_contact'),
+        add_contact_url = URL('add_contact'),
+        del_contact_url = URL('del_contact'),
+        update_contact_url = URL('update_contact'),
     )
 
 @action('get_contacts')
 @action.uses(db, auth.user)
 def get_contacts():
-    contacts = [] # Complete. 
+    contacts = db(db.contacts.user_email == get_user_email()).select(~db.contacts.id).as_list()
+    print("Loaded contacts: ", contacts)
     return dict(contacts=contacts)
 
-# You can add more methods. 
+@action('add_contact', method="POST")
+@action.uses(db, auth.user, session)
+def add_contact():
+    contact = request.json.get('contact')
+    id = db.contacts.insert(contact_name=contact['name'], contact_affiliation=contact['affiliation'], contact_description=contact['description'], contact_image=contact['image'])
+    return dict(id=id)
+
+
 
