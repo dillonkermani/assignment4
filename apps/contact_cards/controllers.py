@@ -30,3 +30,10 @@ def add_contact():
         image=request.json.get('image')
     )
     return dict(id=id)
+
+@action('del_contact', method="POST")
+@action.uses(db, auth.user, session)
+def del_contact():
+    id = request.json.get('id')
+    db(db.contacts.id == id).delete()
+    return "ok"

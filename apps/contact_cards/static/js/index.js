@@ -19,6 +19,15 @@ app.data = {
         };
     },
     methods: {
+        find_contact_idx: function(contact) {
+            // Finds the index of an item in the list.
+            for (let i = 0; i < this.contacts.length; i++) {
+                if (this.contacts[i] === contact) {
+                    return i;
+                }
+            }
+            return null;
+        },
         add_contact() {
             let self = this;
             axios.post(add_contact_url, {
@@ -48,7 +57,23 @@ app.data = {
                 description: "",
                 image: "",
             };
-        }
+        },
+        delete_contact: function(contact) {
+            let self = this;
+            let idx = self.find_contact_idx(contact); // Find the index of the contact by name
+            if (idx === null) {
+                console.log("Contact not found: " + name);
+                return;
+            }
+            let contact_id = self.contacts[idx].id; // Get the contact's id
+            axios.post(del_contact_url, {
+                id: contact_id, // Use the contact's id here
+            }).then(function (r) {
+                self.contacts.splice(idx, 1); // Removes the contact from sight.
+                console.log("Deleted contact " + name);
+                console.log("Updated contacts: " + self.contacts);
+            });
+        },
     }
 };
 
