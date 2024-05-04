@@ -12,34 +12,29 @@
   <div class="container">
     <h1 class="title">Contacts</h1>
     <div><button class="button is-success" id="add_button" @click="add_contact">Add Contact</button></div>
-    <div class="card contact mt-4">
 
 
       <!-- Add Contact Modal -->
       <div class="card-content">
         <div class="media">
           <div class="media-left">
-
             <figure class="photo image is-96x96" @click="triggerFileInput">
               <img class="photo" :src="new_contact.image || 'https://bulma.io/assets/images/placeholders/96x96.png'"/>
               <input ref="fileInput" id="file-input" type="file" style="display: none"
                      accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
                      @change="handleFileChange">
             </figure>
-            
-
           </div>
           <div class="media-content">
             <p class="title person-name">
               <input type="text" class="input is-4 title" 
-                    name="name"
-                    placeholder="Name"
+                    name='name'
+                    value=""
                     v-model="new_contact.name"
               />
             </p>
             <p class="subtitle person-affiliation">
               <input type="text" class="input is-6" 
-                    placeholder="Affiliation"
                     name="affiliation"
                     v-model="new_contact.affiliation"
               />
@@ -49,7 +44,6 @@
         </div>
           <textarea class="textarea"
                     name="description"
-                    placeholder="Description"
                     v-model="new_contact.description"
             ></textarea> 
         </div>
@@ -61,17 +55,17 @@
           <div class="card-content">
               <div class="media">
                   <div class="media-left">
-                      <figure class="image is-96x96" @click="triggerFileInput(contact)">
-                          <img :src="contact.image || 'https://bulma.io/assets/images/placeholders/96x96.png'">
+                      <figure class="photo image is-96x96" @click="triggerFileInput(contact)">
+                          <img class="photo" :src="contact.image || 'https://bulma.io/assets/images/placeholders/96x96.png'">
                           <input type="file" id="file-input" :ref="'fileInput' + contact.id" @change="handleFileChange($event, contact)" style="display:none">
                       </figure>
                   </div>
                   <div class="media-content">
                       <p class="title person-name">
-                          <input class="input" :readonly="!contact.editing" @dblclick="enableEditing(contact)" @blur="saveChanges(contact)" v-model="contact.name">
+                          <input class="input" name="name" :readonly="!contact.editing" @click="enableEditing(contact)" @blur="saveChanges(contact)" v-model="contact.name">
                       </p>
                       <p class="subtitle person-affiliation">
-                          <input class="input" :readonly="!contact.editing" @dblclick="enableEditing(contact)" @blur="saveChanges(contact)" v-model="contact.affiliation">
+                          <input class="input" name="affiliation" :readonly="!contact.editing" @click="enableEditing(contact)" @blur="saveChanges(contact)" v-model="contact.affiliation">
                       </p>
                   </div>
                   <div class="media-right">
@@ -80,7 +74,7 @@
                       </button>
                   </div>
               </div>
-              <textarea class="textarea" :readonly="!contact.editing" @dblclick="enableEditing(contact)" @blur="saveChanges(contact)" v-model="contact.description">
+              <textarea class="textarea" name="description" :readonly="!contact.editing" @click="enableEditing(contact)" @blur="saveChanges(contact)" v-model="contact.description">
               </textarea>
           </div>
       </div>
