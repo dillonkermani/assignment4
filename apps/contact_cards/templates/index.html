@@ -57,27 +57,34 @@
 
 
         <!-- Edit Contact Modal -->
-        <div class="card contact mt-4" v-for="contact in contacts">
+        <div class="card contact mt-4" v-for="contact in contacts" :key="contact.id">
           <div class="card-content">
               <div class="media">
                   <div class="media-left">
-                      <figure class="image is-96x96">
+                      <figure class="image is-96x96" @click="triggerFileInput(contact)">
                           <img :src="contact.image || 'https://bulma.io/assets/images/placeholders/96x96.png'">
+                          <input type="file" id="file-input" :ref="'fileInput' + contact.id" @change="handleFileChange($event, contact)" style="display:none">
                       </figure>
                   </div>
                   <div class="media-content">
-                      <p class="title person-name">{{ contact.name }}</p>
-                      <p class="subtitle person-affiliation">{{ contact.affiliation }}</p>
+                      <p class="title person-name">
+                          <input class="input" :readonly="!contact.editing" @dblclick="enableEditing(contact)" @blur="saveChanges(contact)" v-model="contact.name">
+                      </p>
+                      <p class="subtitle person-affiliation">
+                          <input class="input" :readonly="!contact.editing" @dblclick="enableEditing(contact)" @blur="saveChanges(contact)" v-model="contact.affiliation">
+                      </p>
                   </div>
                   <div class="media-right">
-                      <button class="delete_button" @click="delete_contact(contact)"><i class="delete-button has-text-danger fa-solid fa-trash-can trash"></i></button>
+                      <button class="delete_button" @click="delete_contact(contact)">
+                          <i class="delete-button has-text-danger fa-solid fa-trash-can"></i>
+                      </button>
                   </div>
               </div>
-              <textarea class="textarea" readonly>
-                  {{ contact.description }}
-              </textarea> 
+              <textarea class="textarea" :readonly="!contact.editing" @dblclick="enableEditing(contact)" @blur="saveChanges(contact)" v-model="contact.description">
+              </textarea>
           </div>
       </div>
+      
 
       </div>
     </div>

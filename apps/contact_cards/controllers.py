@@ -37,3 +37,15 @@ def del_contact():
     id = request.json.get('id')
     db(db.contacts.id == id).delete()
     return "ok"
+
+@action('update_contact', method="POST")
+@action.uses(db, auth.user, session)
+def update_contact():
+    id = request.json.get('id')
+    db(db.contacts.id == id).update(
+        name=request.json.get('name'),
+        affiliation=request.json.get('affiliation'),
+        description=request.json.get('description'),
+        image=request.json.get('image')
+    )
+    return "ok"

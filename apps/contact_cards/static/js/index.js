@@ -85,12 +85,22 @@ app.data = {
             this.$refs.fileInput.click(); // Accesses the file input using the ref attribute and triggers its click event
           },
         handleFileChange(event) {
-        const file = event.target.files[0];
-        if (file) {
-            // Creates a URL for the selected file
-            this.new_contact.image = URL.createObjectURL(file);
-        }
+            const file = event.target.files[0];
+            if (file) {
+                // Creates a URL for the selected file
+                this.new_contact.image = URL.createObjectURL(file);
+            }
         },
+        enableEditing(contact) {
+            contact.editing = true;
+        },
+        saveChanges(contact) {
+            axios.post(update_contact_url, contact)
+                .then(() => contact.editing = false)
+                .catch(error => console.error('Error saving contact changes:', error));
+        },
+            
+
     }
 };
 
