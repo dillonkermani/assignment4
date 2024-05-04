@@ -83,7 +83,7 @@ app.data = {
         },
         triggerFileInput() {
             this.$refs.fileInput.click(); // Accesses the file input using the ref attribute and triggers its click event
-          },
+        },
         handleFileChange(event) {
             const file = event.target.files[0];
             if (file) {
